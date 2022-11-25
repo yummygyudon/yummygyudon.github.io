@@ -5,19 +5,19 @@ node_js:
 cache: npm
 branches:
   only:
-    - main # build master branch only
+    - master # build master branch only
 
-before_install:
-- npm install -g hexo
+# before_install:
+# - npm install -g hexo
 
-install:
-- npm install
+# install:
+# - npm install
 
-# Notice: Replace 'YOUR NAME' and 'YOUR EMAIL'
-before_script:
-- git config --global user.name 'yummygyudon'
-- git config --global user.email 'bang2brew@gmail.com'
-# - git clone git://github.com/heroicyang/hexo-theme-modernist.git themes/modernist
+# # Notice: Replace 'YOUR NAME' and 'YOUR EMAIL'
+# before_script:
+# - git config --global user.name 'yummygyudon'
+# - git config --global user.email 'bang2brew@gmail.com'
+# # - git clone git://github.com/heroicyang/hexo-theme-modernist.git themes/modernist
 
 script:
   - hexo generate # generate static files
@@ -27,16 +27,16 @@ deploy:
   github-token: $GH_TOKEN
   keep-history: true
   on:
-    branch: main
+    branch: master
   local-dir: public
   
-after_success:
-- mkdir .deploy                   # Create a folder to use for teh pages branch
-- cd .deploy
-- git clone --depth 1 --branch gh-pages --single-branch $DEPLOY_REPO . || (git init && git remote add -t gh-pages origin $DEPLOY_REPO)
-- rm -rf ./*                      # Clear old verion
-- cp -r ../public/* .             # Copy over files for new version
-- git add -A .          
-- git commit -m 'Site updated'    # Make a new commit for new version
-- git branch -m gh-pages
-- git push -q -u origin gh-pages  # Push silently so we don't leak information
+# after_success:
+# - mkdir .deploy                   # Create a folder to use for teh pages branch
+# - cd .deploy
+# - git clone --depth 1 --branch gh-pages --single-branch $DEPLOY_REPO . || (git init && git remote add -t gh-pages origin $DEPLOY_REPO)
+# - rm -rf ./*                      # Clear old verion
+# - cp -r ../public/* .             # Copy over files for new version
+# - git add -A .          
+# - git commit -m 'Site updated'    # Make a new commit for new version
+# - git branch -m gh-pages
+# - git push -q -u origin gh-pages  # Push silently so we don't leak information
